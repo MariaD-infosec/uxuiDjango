@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Современный Дизайн Сайта</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение шрифта Inter с Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tailwind CSS Custom Colors */
+        :root {
+            --color-primary-green: #B0C18E; /* Мягкий, приглушенный зеленый/хаки */
+            --color-light-beige-green: #EBF0E3; /* Очень светлый, почти бежево-зеленый */
+            --color-dark-accent-green: #6B8E23; /* Темный акцентный зеленый */
+            --color-dark-text: #333333; /* Темно-серый для основного текста */
+            --color-medium-text: #666666; /* Средне-серый для второстепенного текста */
+            --color-light-text: #888888; /* Светло-серый для заголовков */
+            --color-footer-background: #4A533A; /* Темный, землистый оттелок для подвала */
+        }
+
+        /* Configure Tailwind to use custom colors */
+        .tailwind-config {
+            /* This invisible block allows Tailwind to pick up custom colors */
+            @apply bg-[var(--color-primary-green)] bg-[var(--color-light-beige-green)] text-[var(--color-dark-accent-green)] text-[var(--color-dark-text)] text-[var(--color-medium-text)] text-[var(--color-light-text)] bg-[var(--color-footer-background)];
+        }
+
+        html {
+            scroll-behavior: smooth; /* Для плавного скролла */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
+            background-color: var(--color-light-beige-green); /* Светлый фон для всей страницы */
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column; /* Для выравнивания контента и навигации */
+            justify-content: center; /* Центрирует контент по вертикали */
+            align-items: center;
+            color: white; /* Текст на изображении */
+            text-align: center;
+            position: relative; /* Важно для позиционирования nav и слайдера */
+            overflow: hidden;
+            border-bottom-left-radius: 40px; /* Закругленные углы */
+            border-bottom-right-radius: 40px; /* Закругленные углы */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding-bottom: 90px; /* Дополнительный отступ для навигации внизу */
+        }
+
+        /* Styles for the image slider */
+        .slider-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* Плавный переход */
+            z-index: 0; /* Под контентом */
+        }
+
+        .slider-image.active {
+            opacity: 1;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay - можно настроить оттенок, если нужно */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 1rem;
+            flex-grow: 1; /* Позволяет контенту занимать доступное пространство */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        @media (min-width: 768px) {
+            .hero-content h1 {
+                font-size: 4.5rem;
+            }
+            .hero-content p {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Стили для кнопок слайдера */
+        .slider-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.3); /* Полупрозрачный белый */
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            z-index: 3; /* Поверх изображений и оверлея */
+            border-radius: 9999px; /* Полностью круглые */
+            transition: background-color 0.3s ease;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .slider-nav-button.prev {
+            left: 1rem;
+        }
+
+        .slider-nav-button.next {
+            right: 1rem;
+        }
+
+        /* Индикаторы слайдера */
+        .slider-indicators {
+            position: absolute;
+            bottom: 100px; /* Отступ над навигацией */
+            z-index: 3;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .indicator-dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background-color: var(--color-light-beige-green); /* Используем светлый бежево-зеленый */
+            padding: 4rem 1rem;
+            width: 100%;
+            border-radius: 40px; /* Закругленные углы */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 40px auto; /* Центрируем и добавляем отступы */
+            max-width: 1200px; /* Максимальная ширина */
+        }
+
+        .font-details { /* Этот класс теперь содержит информацию о профессии */
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .font-details {
+                flex-direction: row;
+                text-align: left;
+            }
+        }
+
+        .font-item { /* Используется для блоков информации о профессии */
+            flex: 1;
+        }
+
+        .font-heading {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--color-light-text); /* Светло-серый */
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .font-item h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-dark-text); /* Темно-серый */
+            margin-bottom: 1rem;
+        }
+
+        .font-item p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--color-medium-text); /* Средне-серый */
+        }
+
+        /* Features Section */
+        .features-section {
+            background-color: var(--color-primary-green); /* Используем приглушенный зеленый/хаки */
+            padding: 4rem 1rem;
+            display: flex; /* Остается flex, чтобы управлять центрированием содержимого */
+            flex-direction: column; /* Элементы будут по умолчанию в колонку */
+            gap: 2rem; /* Уменьшаем, так как будет меньше элементов */
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            width: 100%;
+            border-radius: 40px; /* Закругленные углы */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .features-section {
+                flex-direction: row; /* Если нужно будет вернуть несколько блоков в ряд */
+                text-align: left;
+            }
+        }
+
+        .feature-block {
+            flex: 1; /* Чтобы занимал доступное пространство */
+            padding: 1rem;
+        }
+
+        .feature-block h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-light-text); /* Светло-серый */
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .feature-block h4 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-dark-text); /* Темно-серый */
+            margin-bottom: 1rem;
+        }
+
+        .feature-block p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--color-medium-text); /* Средне-серый */
+        }
+
+        /* The .quick-notes-app img rule is no longer directly used as the image is removed, but keeping it for context if new images are added to this block. */
+        .quick-notes-app img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Additional Features Section */
+        .additional-features {
+            background-color: var(--color-light-beige-green); /* Используем светлый бежево-зеленый */
+            padding: 4rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            width: 100%;
+            border-radius: 40px; /* Закругленные углы */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .additional-features {
+                flex-direction: row;
+                text-align: left;
+            }
+        }
+
+        .feature-item {
+            flex: 1;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-item img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            border-radius: 50%;
+            object-fit: cover; /* Обеспечивает покрытие области */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-item h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-dark-text); /* Темно-серый */
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--color-medium-text); /* Средне-серый */
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-footer-background); /* Используем темный землистый цвет */
+            color: white; /* Белый текст на темном фоне */
+            padding: 2rem 1rem;
+            text-align: center;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation for sections on scroll */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom styles for navigation buttons - ENHANCED EFFECTS */
+        .nav-button {
+            @apply relative overflow-hidden /* Для эффекта волны/блеска */
+                   bg-white /* Фон кнопок - белый */
+                   text-[var(--color-dark-accent-green)] /* Цвет текста - темно-акцентный зеленый */
+                   font-semibold /* Полужирный текст */
+                   px-6 py-3 /* Больше отступов для размера */
+                   rounded-lg /* Слегка закругленные углы */
+                   shadow-md /* Небольшая тень для глубины */
+                   transition-all duration-300 ease-in-out /* Плавные переходы */
+                   whitespace-nowrap /* Предотвращаем перенос текста */
+                   z-10; /* Убедимся, что кнопки находятся поверх других элементов */
+
+            /* Hover effect: background, text, shadow, and scale */
+            &:hover {
+                @apply bg-[var(--color-dark-accent-green)] /* Наведение: фон темно-акцентный зеленый */
+                       text-white /* Наведение: текст белый */
+                       shadow-lg /* Наведение: большая тень */
+                       scale-105; /* Наведение: небольшое увеличение */
+                box-shadow: 0 8px 25px rgba(107, 142, 35, 0.4); /* Зеленое свечение на наведении */
+            }
+
+            /* Active effect: subtle press down */
+            &:active {
+                @apply scale-95; /* Нажатие: уменьшение размера */
+                transform: translateY(1px); /* Небольшое смещение вниз */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Уменьшение тени */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="hero-section" class="hero-section">
+        <!-- Слайдер изображений -->
+        <div class="slider-image active" style="background-image: url('/main/static/img/photo1.jpg');"></div>
+        <div class="slider-image" style="background-image: url('/main/static/img/photo2.jpg');"></div>
+        <div class="slider-image" style="background-image: url('/main/static/img/photo3.jpg');"></div>
+        <div class="slider-image" style="background-image: url('/main/static/img/photo4.jpg');"></div>
+        <div class="slider-image" style="background-image: url('/main/static/img/roadmap.jpg');"></div>
+
+        <div class="hero-content">
+            <h1>МИР ВОЗМОЖНОСТЕЙ</h1>
+            <p>Ваш путь в UX/UI дизайне.</p>
+        </div>
+
+        <!-- Кнопки навигации слайдера -->
+        <button class="slider-nav-button prev">&#10094;</button>
+        <button class="slider-nav-button next">&#10095;</button>
+
+        <!-- Индикаторы слайдера -->
+        <div class="slider-indicators"></div>
+
+        <!-- Navigation Bar inside hero-section, positioned at bottom -->
+        <nav class="absolute bottom-0 left-0 right-0 z-10 bg-[var(--color-primary-green)] bg-opacity-80 shadow-lg rounded-b-xl py-3 px-4 backdrop-blur-sm">
+            <div class="container mx-auto flex flex-wrap justify-center items-center gap-4">
+                <a href="{% url 'index' %}" class="nav-button">Главная</a>
+                <a href="{% url 'general_statistics' %}" class="nav-button">Общая статистика</a>
+                <a href="{% url 'demand_page' %}" class="nav-button">Востребованность</a>
+                <a href="{% url 'geography_statistics' %}" class="nav-button">География</a>
+                <a href="{% url 'skills_statistics' %}" class="nav-button">Навыки</a>
+                <a href="{% url 'latest_vacancies' %}" class="nav-button">Вакансии</a>
+            </div>
+        </nav>
+    </section>
+
+    <!-- Profession Brief Section -->
+    <section id="profession-brief-section" class="content-section fade-in-section">
+        <div class="font-details flex-col items-center">
+            <div class="font-item text-center">
+                <h2 class="text-3xl font-bold text-[var(--color-dark-text)] mb-6">UX/UI-дизайнер: Архитектор цифрового будущего</h2>
+                <div class="text-[var(--color-medium-text)] leading-relaxed text-left max-w-xl mx-auto">
+                    <p class="mb-4">
+                        UX/UI-дизайнер — это тот, кто делает технологии человечными. Он не просто оформляет интерфейсы — он проектирует впечатления, формирует поведение и задаёт ритм взаимодействию между человеком и цифровым миром.
+                    </p>
+                    <p class="mb-4">
+                        Эта профессия стоит на стыке дизайна, аналитики, эмпатии и логики. UX/UI-дизайнер думает как исследователь, чувствует как пользователь и создает как художник. Он анализирует поведение, ищет узкие места, улучшает сценарии взаимодействия, чтобы даже самые сложные процессы ощущались естественными и лёгкими.
+                    </p>
+                    <p class="mb-4">
+                        В современном мире, где каждый бизнес становится цифровым, UX/UI-дизайнеры — это не просто специалисты, а движущая сила прогресса. Их работа помогает людям быстрее заказывать еду, безопасно управлять финансами, проходить обучение и даже получать медицинскую помощь онлайн.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section (QUICK VIEW now contains detailed info) -->
+    <section id="features-section" class="features-section fade-in-section">
+        <div class="feature-block w-full"> <!-- w-full для занятия всей ширины -->
+            <h3 class="mb-2">ПОДРОБНО О ПРОФЕССИИ</h3>
+            <h4 class="mb-4">Кто такой UX/UI-дизайнер?</h4>
+            <p class="text-[var(--color-medium-text)] text-left">
+                UX/UI-дизайнер — это архитектор цифрового комфорта. Он проектирует не просто кнопки и экраны, а эмоции, поведение и путь пользователя в приложениях, сайтах и сервисах. Это человек, который превращает сложные системы в простые и приятные интерфейсы, в которых хочется остаться.
+            </p>
+            <p class="text-[var(--color-medium-text)] mt-4 text-left">
+                <p class="text-[var(--color-medium-text)] text-left">🔍UX (User Experience) — отвечает за то, как продукт работает: где расположены кнопки, как пользователь проходит путь от первой страницы до покупки или действия, как легко ему найти нужное. Это аналитика, исследования, поведение человека в цифровом мире.</p>
+                <p class="text-[var(--color-medium-text)] text-left">🎨 UI (User Interface) — отвечает за то, как продукт выглядит: цвета, шрифты, иконки, анимации — всё, что делает интерфейс стильным, современным и визуально понятным.</p>
+                <p class="text-[var(--color-medium-text)] text-left">Почему это круто?
+                UX/UI-дизайнеры влияют на повседневную жизнь миллионов людей. Это те, кто делает мобильные банки простыми, онлайн-магазины — быстрыми, а сервисы — приятными. В каждом успешном цифровом продукте есть их почерк.</p>
+                <p class="text-[var(--color-medium-text)] text-left">💼 Профессия гибкая: можно развиваться как UX-исследователь, UI-стилист, дизайнер взаимодействия, специалист по дизайн-системам и даже дизайн-лид.</p>
+                <p class="text-[var(--color-medium-text)] text-left">📈 Спрос на дизайнеров постоянно растёт — бизнесу нужны те, кто умеет превращать идеи в интуитивные интерфейсы.</p>
+                <p class="text-[var(--color-medium-text)] text-left">🌍 Можно работать удалённо с международными компаниями, собирать крутое портфолио и участвовать в создании продуктов, которыми пользуется весь мир.</p>
+            </p>
+        </div>
+    </section>
+
+    <!-- Designer Tools Section -->
+    <section id="designer-tools-section" class="additional-features fade-in-section">
+        <div class="feature-item">
+            <img src="https://placehold.co/60x60/FFDDC1/000000?text=Figma" alt="Иконка Figma">
+            <h3 class="mb-2">Figma</h3>
+            <p class="text-[var(--color-medium-text)]">Мощный онлайн-инструмент для создания интерфейсов, прототипов и коллаборативной работы. Идеально подходит для UI-дизайна.</p>
+        </div>
+        <div class="feature-item">
+            <img src="https://placehold.co/60x60/C1FFD7/000000?text=Sketch" alt="Иконка Sketch">
+            <h3 class="mb-2">Sketch</h3>
+            <p class="text-[var(--color-medium-text)]">Векторный графический редактор, популярный среди дизайнеров интерфейсов для macOS. Отличный для создания детальных макетов.</p>
+        </div>
+        <div class="feature-item">
+            <img src="https://placehold.co/60x60/D1C1FF/000000?text=Adobe+XD" alt="Иконка Adobe XD">
+            <h3 class="mb-2">Adobe XD</h3>
+            <p class="text-[var(--color-medium-text)]">Инструмент для дизайна и прототипирования пользовательских интерфейсов. Интегрируется с другими продуктами Adobe Creative Cloud.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>2025 UX Craft.</p>
+        <p class="mt-2 text-sm">
+            <p class="hover:text-gray-300 transition-colors duration-300">Дымшакова Мария Денисовна РИ-231002</p>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll('.fade-in-section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Срабатывает, когда 10% секции видно
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                const targetHref = anchor.getAttribute('href');
+
+                // Проверяем, является ли href якорем на текущей странице (начинается с '#')
+                if (targetHref && targetHref.startsWith('#')) {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault(); // Предотвращаем стандартное поведение только для якорей
+
+                        const targetId = targetHref;
+                        const targetElement = document.querySelector(targetId);
+
+                        if (targetElement) { // Убедимся, что элемент существует
+                            const offsetTop = targetElement.offsetTop;
+
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Image Slider Logic
+            const images = document.querySelectorAll('.slider-image');
+            const prevButton = document.querySelector('.slider-nav-button.prev');
+            const nextButton = document.querySelector('.slider-nav-button.next');
+            const indicatorsContainer = document.querySelector('.slider-indicators');
+            let currentIndex = 0;
+
+            // Создание индикаторов
+            images.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('indicator-dot');
+                if (index === 0) {
+                    dot.classList.add('active');
+                }
+                dot.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(dot);
+            });
+
+            const dots = document.querySelectorAll('.indicator-dot');
+
+            function showSlide(index) {
+                images.forEach((img, i) => {
+                    img.classList.remove('active');
+                    dots[i].classList.remove('active');
+                });
+                images[index].classList.add('active');
+                dots[index].classList.add('active');
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                showSlide(currentIndex);
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % images.length;
+                showSlide(currentIndex);
+            }
+
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                showSlide(currentIndex);
+            }
+
+            prevButton.addEventListener('click', prevSlide);
+            nextButton.addEventListener('click', nextSlide);
+
+            // Автоматическое переключение слайдов каждые 5 секунд
+            setInterval(nextSlide, 5000);
+
+            // Инициализация первого слайда
+            showSlide(currentIndex);
+        });
+    </script>
+</body>
+</html>
