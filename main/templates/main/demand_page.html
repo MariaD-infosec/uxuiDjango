@@ -4,33 +4,31 @@
 
 {% block content %}
 <style>
-    /* Пользовательские стили для переопределения или дополнения Tailwind */
     body {
         font-family: 'Inter', sans-serif;
-        background-color: #f0f0e0; /* Светлый фон */
+        background-color: #f0f0e0;
         display: flex;
         flex-direction: column;
         min-height: 100vh;
-        overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
+        overflow-x: hidden;
     }
     .header-bg {
-        background-color: #b0c4b0; /* Зеленый цвет для хедера и футера */
+        background-color: #b0c4b0;
     }
     .sidebar-bg {
-        background-color: #d0e0d0; /* Светло-зеленый для сайдбара */
-        border-right: 2px solid #80a080; /* Темно-зеленая граница */
+        background-color: #d0e0d0;
+        border-right: 2px solid #80a080;
     }
     .content-area-bg {
-        background-color: #ffffff; /* Белый фон для основной области контента */
-        border: 2px solid #80a080; /* Темно-зеленая граница */
+        background-color: #ffffff;
+        border: 2px solid #80a080;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .line {
         height: 2px;
-        background-color: #80a080; /* Темно-зеленая линия */
+        background-color: #80a080;
     }
 
-    /* Анимация для линий в хедере */
     @keyframes linePulse {
         0% { opacity: 0.7; transform: scaleX(0.95) translateX(0); }
         50% { opacity: 1; transform: scaleX(1) translateX(5px); }
@@ -41,10 +39,9 @@
         animation: linePulse 2s ease-in-out infinite;
     }
     .animated-line:nth-child(2) {
-        animation-delay: 0.5s; /* Задержка для второй линии */
+        animation-delay: 0.5s;
     }
 
-    /* Анимация для логотипа */
     @keyframes logoPopIn {
         0% { opacity: 0; transform: scale(0.5) translateY(-20px); }
         80% { opacity: 1; transform: scale(1.05) translateY(5px); }
@@ -55,22 +52,21 @@
         animation: logoPopIn 0.8s ease-out forwards;
     }
 
-    /* Улучшенные стили для элементов сайдбара (более динамичные) */
     .sidebar-item {
         cursor: pointer;
         position: relative;
         margin-bottom: 0.6rem;
         color: #4a5568;
         font-weight: 500;
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Более сложная функция перехода */
-        border-radius: 0.75rem; /* Более выраженные закругленные углы */
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border-radius: 0.75rem;
         overflow: hidden;
-        background-color: rgba(255, 255, 255, 0.6); /* Полупрозрачный фон по умолчанию */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Легкая тень */
+        background-color: rgba(255, 255, 255, 0.6);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
     .sidebar-item a {
         display: block;
-        padding: 0.9rem 1.25rem; /* Увеличенный padding для лучшего таргеттинга */
+        padding: 0.9rem 1.25rem;
         text-decoration: none;
         color: inherit;
         position: relative;
@@ -78,27 +74,25 @@
     }
 
     .sidebar-item:hover {
-        color: #2f4f4f; /* Темно-зеленый текст при наведении */
-        background-color: #a7d9a7; /* Более насыщенный зеленый при наведении */
-        transform: translateY(-5px) scale(1.03); /* Подъем и небольшое увеличение */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Выраженная тень */
-        border: 1px solid #6b9a6b; /* Тонкая рамка */
+        color: #2f4f4f;
+        background-color: #a7d9a7;
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        border: 1px solid #6b9a6b;
     }
 
     .sidebar-item.active {
         font-weight: 700;
-        background-color: #6b9a6b; /* Более глубокий зеленый для активного элемента */
+        background-color: #6b9a6b;
         color: #ffffff;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3); /* Более выраженная тень */
-        transform: translateY(-3px) scale(1.01); /* Легкий подъем */
-        border: 1px solid #5a8a5a; /* Более темная рамка */
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        transform: translateY(-3px) scale(1.01);
+        border: 1px solid #5a8a5a;
     }
-    /* Убираем псевдоэлемент, так как используем прямую анимацию background-color */
     .sidebar-item::before {
         display: none;
     }
 
-    /* Новые стили для анимации появления секций */
     .section-hidden {
         opacity: 0;
         transform: translateY(40px) scale(0.95);
@@ -110,62 +104,163 @@
         transform: translateY(0) scale(1);
     }
 
-    /* Custom styles for content cards if needed */
     .content-card {
-        background-color: #ffffff; /* Белый фон */
-        border: 2px solid #80a080; /* Темно-зеленая граница */
+        background-color: #ffffff;
+        border: 2px solid #80a080;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .graph-image-container {
-        background-color: #f8f8f8; /* Очень светлый фон для графиков */
+        background-color: #f8f8f8;
         border: 1px solid #80a080;
-        border-radius: 0.75rem; /* Закругленные углы */
+        border-radius: 0.75rem;
         padding: 1rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        overflow: hidden; /* Скрываем части изображения, если оно выходит за пределы контейнера */
+        overflow: hidden;
     }
     .graph-image-container img {
         max-width: 100%;
         height: auto;
         display: block;
-        border-radius: 0.5rem; /* Закругленные углы для самого изображения */
+        border-radius: 0.5rem;
+    }
+
+    .card-layout {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-layout h3 {
+        margin-top: 0;
+        text-align: center;
+        font-size: 1.5em;
+    }
+
+    .content-section-layout {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+        .content-section-layout {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+    }
+
+    .table-container {
+        flex: 1;
+        max-width: 100%;
+        overflow-x: auto;
+        max-height: 400px;
+        padding-left: 0;
+    }
+
+    @media (min-width: 768px) {
+        .table-container {
+            max-width: 30%;
+            padding-left: 50px;
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.8em;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+        padding: 8px 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table th {
+        background: linear-gradient(135deg, steelblue, #9abad6);
+        color: #fff;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    table tr:hover {
+        background-color: #e1f5fe;
+        cursor: pointer;
+    }
+
+    .graph-container {
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 16px;
+        box-sizing: border-box;
+    }
+
+    .graph-container img {
+        max-width: 100%;
+        max-height: 500px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+
+    .graph-container img:hover {
+        transform: scale(1.05);
+        cursor: pointer;
     }
 </style>
 
-    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left px-4">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center md:text-center px-4">
         Востребованность профессии "UX/UI-дизайнер"
     </h2>
 
-    <div class="content-area-bg mx-auto px-4 py-8 rounded-lg shadow-lg mb-8 max-w-7xl"> {# Общий контейнер для контента #}
+    <div class="content-area-bg mx-auto px-4 py-8 rounded-lg shadow-lg mb-8 max-w-7xl">
         {% for section in sections %}
-            <section class="section-hidden py-4"> {# Уменьшен padding внутри секции #}
+            <section class="section-hidden py-4">
                 <div class="container mx-auto flex flex-col items-center">
                     <h3 class="text-3xl font-bold text-center text-gray-800 mb-8">
                         {{ section.title }}
                     </h3>
 
-                    <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 w-full">
-                        {% if section.graph_image %}
-                            <div class="w-full graph-image-container">
+                    <div class="content-section-layout w-full">
+                        <div class="table-container card-layout">
+                            {% if section.html_table %}
+                                {{ section.html_table | safe }}
+                            {% else %}
+                                <p style="text-align: center; padding: 20px;">Таблица отсутствует</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="graph-container card-layout">
+                            {% if section.graph_image %}
                                 <img src="{{ section.graph_image.url }}" alt="График">
-                            </div>
-                        {% else %}
-                            <div class="w-full content-card flex justify-center items-center p-8 rounded-lg">
-                                <p class="text-center text-gray-500 text-lg">График отсутствует</p>
-                            </div>
-                        {% endif %}
+                            {% else %}
+                                <p style="text-align: center;">График отсутствует</p>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </section>
         {% empty %}
-            <p class="text-center text-gray-700 text-xl p-12">Нет данных для отображения.</p> {# Стили для пустого состояния внутри контейнера #}
+            <p class="text-center text-gray-700 text-xl p-12">Нет данных для отображения.</p>
         {% endfor %}
     </div>
 
     <script>
-        // Анимация появления секций при скролле
         document.addEventListener("DOMContentLoaded", function() {
             const sections = document.querySelectorAll('section');
 
@@ -174,15 +269,15 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.remove('section-hidden');
                         entry.target.classList.add('section-visible');
-                        observer.unobserve(entry.target); // Остановить наблюдение после появления
+                        observer.unobserve(entry.target);
                     }
                 });
             }, {
-                threshold: 0.1 // Срабатывает, когда 10% секции видно
+                threshold: 0.1
             });
 
             sections.forEach(section => {
-                section.classList.add('section-hidden'); // Добавляем класс для начального скрытия
+                section.classList.add('section-hidden');
                 observer.observe(section);
             });
         });

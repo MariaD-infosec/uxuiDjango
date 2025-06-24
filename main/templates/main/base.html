@@ -5,48 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}UX CRAFT{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Использование Inter для основного текста и Montserrat для заголовков -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Tailwind CSS Custom Colors from index.html */
         :root {
-            --color-primary-green: #B0C18E; /* Мягкий, приглушенный зеленый/хаки */
-            --color-light-beige-green: #EBF0E3; /* Очень светлый, почти бежево-зеленый */
-            --color-dark-accent-green: #6B8E23; /* Темный акцентный зеленый */
-            --color-dark-text: #333333; /* Темно-серый для основного текста */
-            --color-medium-text: #666666; /* Средне-серый для второстепенного текста */
-            --color-light-text: #888888; /* Светло-серый для заголовков */
-            --color-footer-background: #4A533A; /* Темный, землистый оттенок для подвала */
-        }
-
-        /* Configure Tailwind to use custom colors */
-        .tailwind-config {
-            /* This invisible block allows Tailwind to pick up custom colors */
-            @apply bg-[var(--color-primary-green)] bg-[var(--color-light-beige-green)] text-[var(--color-dark-accent-green)] text-[var(--color-dark-text)] text-[var(--color-medium-text)] text-[var(--color-light-text)] bg-[var(--color-footer-background)];
+            --color-primary-green: #B0C18E;
+            --color-light-beige-green: #EBF0E3;
+            --color-dark-accent-green: #6B8E23;
+            --color-dark-text: #333333;
+            --color-medium-text: #666666;
+            --color-light-text: #888888;
+            --color-footer-background: #4A533A;
+            --color-sidebar-bg: var(--color-light-beige-green);
+            --color-sidebar-text: var(--color-dark-text);
+            --color-sidebar-active-glow: var(--color-dark-accent-green);
         }
 
         html {
-            scroll-behavior: smooth; /* Для плавного скролла */
+            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
         body {
-            font-family: 'Inter', sans-serif; /* Основной шрифт */
-            @apply bg-gray-100 text-gray-800 antialiased; /* Светлый фон, темный текст */
-            margin-top: 70px; /* Отступ сверху для фиксированного хедера */
-            overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
-            display: flex; /* Для корректного позиционирования футера внизу */
-            flex-direction: column; /* Элементы будут выстраиваться в колонку */
-            min-height: 100vh; /* Минимальная высота, чтобы футер был внизу */
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-light-beige-green);
+            color: var(--color-dark-text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            padding-top: 70px;
         }
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif; /* Шрифт для заголовков */
+            font-family: 'Montserrat', sans-serif;
         }
-        /* Стиль для хедера, чтобы он имитировал фон с изображений */
-        .header-bg {
-            background-color: #2c2c2c; /* Темный фон, как на фото */
-            position: relative;
-            overflow: hidden; /* Скрываем выходящие за границы элементы, например, ноутбук */
-        }
-        /* Анимации для плавного появления секций */
+
         .fade-in-section {
             opacity: 0;
             transform: translateY(10px);
@@ -58,205 +58,336 @@
             transform: translateY(0);
         }
 
-        /* Custom styles for navigation buttons - NEW HOVER EFFECT */
-        .nav-button {
-            @apply relative overflow-hidden
-                   bg-white /* Фон кнопок - белый */
-                   text-[var(--color-dark-accent-green)] /* Цвет текста - темно-акцентный зеленый */
-                   font-bold /* Жирный текст */
-                   px-6 py-3 /* Увеличенные отступы для размера */
-                   rounded-xl /* Более мягкие закругленные углы */
-                   shadow-lg /* Улучшенная тень для глубины */
-                   transition-all duration-300 ease-in-out /* Плавные переходы */
-                   whitespace-nowrap /* Предотвращаем перенос текста */
-                   z-60; /* Убедимся, что кнопки находятся поверх других элементов хедера */
-                   /*border-2 border-[var(--color-light-beige-green)]; /* Тонкая светлая рамка */
-
-            /* New Hover effect: glow and text color change */
-            &:hover {
-                @apply text-white; /* Наведение: текст белый */
-                background-color: var(--color-dark-accent-green); /* Фон темно-акцентный зеленый */
-                box-shadow: 0 0 20px 8px rgba(107, 142, 35, 0.7); /* Более выраженное зеленое свечение */
-                border-color: transparent; /* Рамка исчезает при наведении */
-            }
-
-            /* Active effect: subtle press down */
-            &:active {
-                @apply scale-98; /* Небольшое уменьшение размера при нажатии */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), inset 0 2px 5px rgba(0, 0, 0, 0.1); /* Эффект вдавливания */
-            }
-
-            /* Ripple/shine effect on hover - FIXED TO COVER ALL BUTTONS */
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 100%; /* Начало эффекта слева за пределами кнопки */
-                width: 200%; /* Увеличенная ширина для полного покрытия, учитывая скос */
-                height: 100%;
-                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent); /* Градиентный блеск */
-                transform: skewX(-20deg);
-                transition: transform 0.7s ease-out; /* Более плавная анимация */
-                z-index: -1; /* Под текстом кнопки */
-            }
-
-            &:hover::before {
-                transform: skewX(-20deg) translateX(50%); /* Перемещаем эффект направо, чтобы покрыть всю кнопку */
-            }
-        }
-
-        /* Стили для десктопной навигации */
-        .desktop-nav-container {
+        header {
+            background-color: var(--color-primary-green);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            height: 70px;
             display: flex;
-            flex-grow: 1; /* Позволяет контейнеру занимать доступное пространство */
-            justify-content: flex-end; /* Выравнивание кнопок вправо */
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            z-index: 40;
+            left: 0;
+            width: 100%;
         }
 
-        /* Медиа-запросы для адаптивности */
-        @media (max-width: 767px) {
-            .desktop-nav-container {
-                display: none; /* Скрываем десктопную навигацию на мобильных */
+        @media (min-width: 768px) {
+            header {
+                left: 16rem;
+                width: calc(100% - 16rem);
             }
             .hamburger-button {
-                display: block; /* Показываем кнопку гамбургера на мобильных */
+                display: none;
             }
-            .header-bg img { /* Корректировка размера ноутбука на мобильных */
-                width: 100%;
-                max-width: 400px; /* Ограничение максимальной ширины */
-                left: 50%;
-                transform: translateX(-50%) translateY(10%); /* Перемещаем ниже для лучшего вида на мобильных */
+            .header-logo {
+                display: none;
             }
         }
 
-        /* Стили для кнопки гамбургера */
-        .hamburger-button {
-            display: none; /* Скрыто по умолчанию на больших экранах */
+        .header-logo {
+            display: flex;
+            align-items: center;
+            height: 100%;
         }
-        /* Мобильное меню */
-        .mobile-menu-overlay {
-            display: none; /* Скрыто по умолчанию */
-            background-color: rgba(0, 0, 0, 0.75);
-        }
-        .mobile-menu-sidebar {
-            transform: translateX(100%); /* Скрыто за пределами экрана */
-            transition: transform 0.3s ease-in-out;
-        }
-        .mobile-menu-sidebar.open {
-            transform: translateX(0); /* Открыто */
-        }
-
-        /* Анимация для логотипа */
-        @keyframes logoPopIn {
-            0% { opacity: 0; transform: scale(0.5) translateY(-20px); }
-            80% { opacity: 1; transform: scale(1.05) translateY(5px); }
-            100% { transform: scale(1) translateY(0); }
-        }
-
-        .logo-animation {
+        .header-logo img {
+            height: 48px;
+            width: auto;
+            border-radius: 8px;
             animation: logoPopIn 0.8s ease-out forwards;
         }
 
-        /* Styles for the footer that were in index.html */
+        .hamburger-button {
+            display: block;
+            color: var(--color-dark-text);
+        }
+
+        .sidebar {
+            width: 16rem;
+            background-color: var(--color-sidebar-bg);
+            color: var(--color-sidebar-text);
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            padding-top: 1rem;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 767px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+        }
+
+        .sidebar-logo-section {
+            padding: 1.5rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .sidebar-logo-section img {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--color-dark-accent-green);
+        }
+        .sidebar-logo-section h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-dark-text);
+            letter-spacing: 1px;
+        }
+
+        .sidebar-nav-list {
+            list-style: none;
+            padding: 0 1rem;
+            margin: 0;
+            flex-grow: 1;
+        }
+        .sidebar-nav-item {
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .sidebar-nav-item a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: var(--color-sidebar-text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+        .sidebar-nav-item a i, .sidebar-nav-item a span {
+            margin-right: 0.75rem;
+        }
+        .sidebar-nav-item a i {
+            font-size: 1rem;
+            color: var(--color-dark-text);
+        }
+
+        .sidebar-nav-item a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(107, 142, 35, 0.4), transparent);
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: all 0.4s ease-out;
+            z-index: -1;
+        }
+        .sidebar-nav-item a:hover {
+            color: white;
+            background-color: var(--color-dark-accent-green);
+            box-shadow: 0 0 15px rgba(107, 142, 35, 0.5);
+        }
+        .sidebar-nav-item a:hover i {
+            color: white;
+        }
+        .sidebar-nav-item a:hover::before {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .sidebar-nav-item a.active {
+            background-color: var(--color-dark-accent-green);
+            color: white;
+            box-shadow: 0 0 15px rgba(107, 142, 35, 0.7);
+            font-weight: 700;
+        }
+        .sidebar-nav-item a.active i {
+            color: white;
+        }
+        .sidebar-nav-item a.active::before {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .sidebar-footer {
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--color-medium-text);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color-light-beige-green);
+            min-height: calc(100vh - 70px);
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .main-content-area {
+                margin-left: 16rem;
+                width: calc(100% - 16rem);
+            }
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 45;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .mobile-menu-overlay.visible {
+            display: block;
+            opacity: 1;
+        }
+
         footer {
-            background-color: var(--color-footer-background); /* Используем темный землистый цвет */
-            color: white; /* Белый текст на темном фоне */
+            background-color: var(--color-footer-background);
+            color: white;
             padding: 2rem 1rem;
             text-align: center;
             border-top-left-radius: 40px;
             border-top-right-radius: 40px;
             box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: auto; /* Прижимает футер к нижней части страницы */
+            margin-top: auto;
+            flex-shrink: 0;
+        }
+
+        @keyframes logoPopIn {
+            0% { opacity: 0; transform: scale(0.5) translateY(-20px); }
+            80% { opacity: 1; transform: scale(1.05) translateY(5px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+        .logo-animation {
+            animation: logoPopIn 0.8s ease-out forwards;
         }
     </style>
     {% block extra_head %}
-    <!-- Дополнительные элементы для head из дочерних шаблонов -->
     {% endblock %}
 </head>
-<body class="flex flex-col min-h-screen">
-
-    <!-- Хедер - теперь фиксированный и включает навигацию -->
-    <header class="fixed top-0 left-0 right-0 bg-[var(--color-primary-green)] bg-opacity-80 shadow-lg py-3 px-4 backdrop-blur-sm z-50">
-        <div class="container mx-auto flex items-center justify-between">
-            <!-- Логотип -->
-            <div class="text-2xl font-extrabold text-white">
-                <a href="{% url 'index' %}" class="flex items-center">
-                    <img src="/static/img/design-Photoroom.png" alt="UX Craft" class="h-12 md:h-13 mr-2 rounded-lg logo-animation">
-                </a>
-            </div>
-
-            <!-- Десктопная навигация -->
-            <nav class="desktop-nav-container hidden md:flex space-x-4">
-                <a href="{% url 'index' %}" class="nav-button">Главная</a>
-                <a href="{% url 'general_statistics' %}" class="nav-button">Общая статистика</a>
-                <a href="{% url 'demand_page' %}" class="nav-button">Востребованность</a>
-                <a href="{% url 'geography_statistics' %}" class="nav-button">География</a>
-                <a href="{% url 'skills_statistics' %}" class="nav-button">Навыки</a>
-                <a href="{% url 'latest_vacancies' %}" class="nav-button">Вакансии</a>
-            </nav>
-
-            <!-- Кнопка гамбургер-меню для мобильных -->
-            <div class="md:hidden">
-                <button id="open-mobile-menu" class="text-white focus:outline-none">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
-            </div>
+<body>
+    <header>
+        <div class="header-logo">
+            <a href="{% url 'index' %}">
+                <img src="/static/img/design-Photoroom.png" alt="UX Craft" class="logo-animation">
+            </a>
+            <span class="text-xl font-bold text-gray-800 ml-2 md:hidden">UX CRAFT</span>
+        </div>
+        <div class="flex-grow flex justify-end items-center">
+        </div>
+        <div class="md:hidden">
+            <button id="open-mobile-menu" class="hamburger-button focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
         </div>
     </header>
 
-    <!-- Мобильное меню (оверлей) -->
-    <div id="mobile-menu-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-40 hidden"></div>
-
-    <!-- Мобильное меню (боковая панель) -->
-    <nav id="mobile-menu-sidebar" class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out mobile-menu-sidebar">
-        <div class="p-6 text-right">
-            <button id="close-mobile-menu" class="text-gray-600 hover:text-gray-900 focus:outline-none text-3xl">
-                &times;
+    <aside id="sidebar-menu" class="sidebar">
+        <div class="sidebar-logo-section">
+            <img src="/static/img/design-Photoroom.png" alt="UX Craft Logo">
+            <h1>UX CRAFT</h1>
+            <button id="close-mobile-menu" class="absolute top-4 right-4 md:hidden text-gray-800 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
-        <ul class="flex flex-col gap-4 p-6">
-            <li><a href="{% url 'index' %}" class="text-gray-800 hover:text-[var(--color-dark-accent-green)] font-medium text-lg">Главная</a></li>
-            <li><a href="{% url 'general_statistics' %}" class="text-gray-800 hover:text-[var(--color-dark-accent-green)] font-medium text-lg">Общая статистика</a></li>
-            <li><a href="{% url 'demand_page' %}" class="text-gray-800 hover:text-[var(--color-dark-accent-green)] font-medium text-lg">Востребованность</a></li>
-            <li><a href="{% url 'geography_statistics' %}" class="text-gray-800 hover:text-[var(--color-dark-accent-green)] font-medium text-lg">География</a></li>
-            <li><a href="{% url 'skills_statistics' %}" class="text-gray-800 hover:text-[var(--color-dark-accent-green)] font-medium text-lg">Навыки</a></li>
-            <li><a href="{% url 'latest_vacancies' %}" class="text-gray-800 hover:text-[var(--color-dark-accent-green)] font-medium text-lg">Вакансии</a></li>
+        <ul class="sidebar-nav-list">
+            <li class="sidebar-nav-item">
+                <a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                    <i class="fas fa-home"></i> <span>Главная</span>
+                </a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a href="{% url 'general_statistics' %}" class="{% if request.resolver_match.url_name == 'general_statistics' %}active{% endif %}">
+                    <i class="fas fa-chart-line"></i> <span>Общая статистика</span>
+                </a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a href="{% url 'demand_page' %}" class="{% if request.resolver_match.url_name == 'demand_page' %}active{% endif %}">
+                    <i class="fas fa-chart-bar"></i> <span>Востребованность</span>
+                </a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a href="{% url 'geography_statistics' %}" class="{% if request.resolver_match.url_name == 'geography_statistics' %}active{% endif %}">
+                    <i class="fas fa-globe"></i> <span>География</span>
+                </a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a href="{% url 'skills_statistics' %}" class="{% if request.resolver_match.url_name == 'skills_statistics' %}active{% endif %}">
+                    <i class="fas fa-brain"></i> <span>Навыки</span>
+                </a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a href="{% url 'latest_vacancies' %}" class="{% if request.resolver_match.url_name == 'latest_vacancies' %}active{% endif %}">
+                    <i class="fas fa-briefcase"></i> <span>Вакансии</span>
+                </a>
+            </li>
         </ul>
-    </nav>
+        <div class="sidebar-footer">
+            <p>&copy; 2025 UX Craft</p>
+        </div>
+    </aside>
 
-    <!-- Основная область контента -->
-    <main class="flex-1">
-        {% block content %}
-        {% endblock %}
-    </main>
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
-    <!-- Футер -->
-    <footer>
-        <p>2025 UX Craft.</p>
-        <p class="mt-2 text-sm">
-            <p class="hover:text-gray-300 transition-colors duration-300">Дымшакова Мария Денисовна РИ-231002</p>
-        </p>
-    </footer>
+    <div class="main-content-area">
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <p>2025 UX Craft.</p>
+            <p class="mt-2 text-sm">
+                <p class="hover:text-gray-300 transition-colors duration-300">Дымшакова Мария Денисовна РИ-231002</p>
+            </p>
+        </footer>
+    </div>
 
     <script>
-        // JavaScript для управления мобильным меню
         document.addEventListener('DOMContentLoaded', function() {
             const openMenuBtn = document.getElementById('open-mobile-menu');
             const closeMenuBtn = document.getElementById('close-mobile-menu');
-            const mobileMenuSidebar = document.getElementById('mobile-menu-sidebar');
+            const mobileMenuSidebar = document.getElementById('sidebar-menu');
             const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
-            // Функция для открытия мобильного меню
             function openMobileMenu() {
                 mobileMenuSidebar.classList.add('open');
-                mobileMenuSidebar.classList.remove('translate-x-full');
-                mobileMenuOverlay.classList.remove('hidden');
+                mobileMenuOverlay.classList.add('visible');
             }
 
-            // Функция для закрытия мобильного меню
             function closeMobileMenu() {
                 mobileMenuSidebar.classList.remove('open');
-                mobileMenuSidebar.classList.add('translate-x-full');
-                mobileMenuOverlay.classList.add('hidden');
+                mobileMenuOverlay.classList.remove('visible');
             }
 
             if (openMenuBtn) {
@@ -271,18 +402,16 @@
                 mobileMenuOverlay.addEventListener('click', closeMobileMenu);
             }
 
-            // Закрывать мобильное меню при клике на ссылку внутри него
             mobileMenuSidebar.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', closeMobileMenu);
             });
 
-            // Intersection Observer для анимации появления секций
             const sections = document.querySelectorAll('.fade-in-section');
 
             const observerOptions = {
-                root: null, // viewport
+                root: null,
                 rootMargin: '0px',
-                threshold: 0.1 // Когда 10% элемента видно
+                threshold: 0.1
             };
 
             const sectionObserver = new IntersectionObserver((entries, observer) => {
@@ -295,6 +424,21 @@
 
             sections.forEach(section => {
                 sectionObserver.observe(section);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.sidebar-nav-item a');
+
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split('?')[0];
+
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                } else if (currentPath === '/' && linkPath === '{% url "index" %}') {
+                    link.classList.add('active');
+                }
             });
         });
     </script>

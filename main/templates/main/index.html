@@ -4,58 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Современный Дизайн Сайта</title>
-    <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Подключение шрифта Inter с Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Tailwind CSS Custom Colors */
         :root {
-            --color-primary-green: #B0C18E; /* Мягкий, приглушенный зеленый/хаки */
-            --color-light-beige-green: #EBF0E3; /* Очень светлый, почти бежево-зеленый */
-            --color-dark-accent-green: #6B8E23; /* Темный акцентный зеленый */
-            --color-dark-text: #333333; /* Темно-серый для основного текста */
-            --color-medium-text: #666666; /* Средне-серый для второстепенного текста */
-            --color-light-text: #888888; /* Светло-серый для заголовков */
-            --color-footer-background: #4A533A; /* Темный, землистый оттелок для подвала */
+            --color-primary-green: #B0C18E;
+            --color-light-beige-green: #EBF0E3;
+            --color-dark-accent-green: #6B8E23;
+            --color-dark-text: #333333;
+            --color-medium-text: #666666;
+            --color-light-text: #888888;
+            --color-footer-background: #4A533A;
         }
 
-        /* Configure Tailwind to use custom colors */
         .tailwind-config {
-            /* This invisible block allows Tailwind to pick up custom colors */
             @apply bg-[var(--color-primary-green)] bg-[var(--color-light-beige-green)] text-[var(--color-dark-accent-green)] text-[var(--color-dark-text)] text-[var(--color-medium-text)] text-[var(--color-light-text)] bg-[var(--color-footer-background)];
         }
 
         html {
-            scroll-behavior: smooth; /* Для плавного скролла */
+            scroll-behavior: smooth;
         }
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
-            background-color: var(--color-light-beige-green); /* Светлый фон для всей страницы */
+            overflow-x: hidden;
+            background-color: var(--color-light-beige-green);
         }
 
-        /* Hero Section */
         .hero-section {
             height: 100vh;
             display: flex;
-            flex-direction: column; /* Для выравнивания контента и навигации */
-            justify-content: center; /* Центрирует контент по вертикали */
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            color: white; /* Текст на изображении */
+            color: white;
             text-align: center;
-            position: relative; /* Важно для позиционирования nav и слайдера */
+            position: relative;
             overflow: hidden;
-            border-bottom-left-radius: 40px; /* Закругленные углы */
-            border-bottom-right-radius: 40px; /* Закругленные углы */
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            padding-bottom: 90px; /* Дополнительный отступ для навигации внизу */
+            padding-bottom: 90px;
         }
 
-        /* Styles for the image slider */
         .slider-image {
             position: absolute;
             top: 0;
@@ -65,8 +58,8 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 1s ease-in-out; /* Плавный переход */
-            z-index: 0; /* Под контентом */
+            transition: opacity 1s ease-in-out;
+            z-index: 0;
         }
 
         .slider-image.active {
@@ -80,7 +73,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.4); /* Dark overlay - можно настроить оттенок, если нужно */
+            background: rgba(0, 0, 0, 0.4);
             z-index: 1;
         }
 
@@ -88,7 +81,7 @@
             position: relative;
             z-index: 2;
             padding: 1rem;
-            flex-grow: 1; /* Позволяет контенту занимать доступное пространство */
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -115,18 +108,17 @@
             }
         }
 
-        /* Стили для кнопок слайдера */
         .slider-nav-button {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.3); /* Полупрозрачный белый */
+            background-color: rgba(255, 255, 255, 0.3);
             color: white;
             border: none;
             padding: 0.75rem 1rem;
             cursor: pointer;
-            z-index: 3; /* Поверх изображений и оверлея */
-            border-radius: 9999px; /* Полностью круглые */
+            z-index: 3;
+            border-radius: 9999px;
             transition: background-color 0.3s ease;
             font-size: 1.5rem;
             display: flex;
@@ -146,10 +138,9 @@
             right: 1rem;
         }
 
-        /* Индикаторы слайдера */
         .slider-indicators {
             position: absolute;
-            bottom: 100px; /* Отступ над навигацией */
+            bottom: 100px;
             z-index: 3;
             display: flex;
             gap: 0.5rem;
@@ -169,18 +160,17 @@
             transform: scale(1.2);
         }
 
-        /* Content Sections */
         .content-section {
-            background-color: var(--color-light-beige-green); /* Используем светлый бежево-зеленый */
+            background-color: var(--color-light-beige-green);
             padding: 4rem 1rem;
             width: 100%;
-            border-radius: 40px; /* Закругленные углы */
+            border-radius: 40px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin: 40px auto; /* Центрируем и добавляем отступы */
-            max-width: 1200px; /* Максимальная ширина */
+            margin: 40px auto;
+            max-width: 1200px;
         }
 
-        .font-details { /* Этот класс теперь содержит информацию о профессии */
+        .font-details {
             display: flex;
             flex-direction: column;
             gap: 3rem;
@@ -194,14 +184,14 @@
             }
         }
 
-        .font-item { /* Используется для блоков информации о профессии */
+        .font-item {
             flex: 1;
         }
 
         .font-heading {
             font-size: 0.9rem;
             font-weight: 700;
-            color: var(--color-light-text); /* Светло-серый */
+            color: var(--color-light-text);
             text-transform: uppercase;
             margin-bottom: 0.5rem;
             letter-spacing: 0.05em;
@@ -210,78 +200,18 @@
         .font-item h2 {
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--color-dark-text); /* Темно-серый */
+            color: var(--color-dark-text);
             margin-bottom: 1rem;
         }
 
         .font-item p {
             font-size: 1rem;
             line-height: 1.6;
-            color: var(--color-medium-text); /* Средне-серый */
+            color: var(--color-medium-text);
         }
 
-        /* Features Section */
         .features-section {
-            background-color: var(--color-primary-green); /* Используем приглушенный зеленый/хаки */
-            padding: 4rem 1rem;
-            display: flex; /* Остается flex, чтобы управлять центрированием содержимого */
-            flex-direction: column; /* Элементы будут по умолчанию в колонку */
-            gap: 2rem; /* Уменьшаем, так как будет меньше элементов */
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            width: 100%;
-            border-radius: 40px; /* Закругленные углы */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-
-        @media (min-width: 768px) {
-            .features-section {
-                flex-direction: row; /* Если нужно будет вернуть несколько блоков в ряд */
-                text-align: left;
-            }
-        }
-
-        .feature-block {
-            flex: 1; /* Чтобы занимал доступное пространство */
-            padding: 1rem;
-        }
-
-        .feature-block h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--color-light-text); /* Светло-серый */
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.05em;
-        }
-
-        .feature-block h4 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--color-dark-text); /* Темно-серый */
-            margin-bottom: 1rem;
-        }
-
-        .feature-block p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--color-medium-text); /* Средне-серый */
-        }
-
-        /* The .quick-notes-app img rule is no longer directly used as the image is removed, but keeping it for context if new images are added to this block. */
-        .quick-notes-app img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 0.75rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Additional Features Section */
-        .additional-features {
-            background-color: var(--color-light-beige-green); /* Используем светлый бежево-зеленый */
+            background-color: var(--color-primary-green);
             padding: 4rem 1rem;
             display: flex;
             flex-direction: column;
@@ -290,7 +220,64 @@
             margin: 0 auto;
             text-align: center;
             width: 100%;
-            border-radius: 40px; /* Закругленные углы */
+            border-radius: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .features-section {
+                flex-direction: row;
+                text-align: left;
+            }
+        }
+
+        .feature-block {
+            flex: 1;
+            padding: 1rem;
+        }
+
+        .feature-block h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-light-text);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .feature-block h4 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-dark-text);
+            margin-bottom: 1rem;
+        }
+
+        .feature-block p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--color-medium-text);
+        }
+
+        .quick-notes-app img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .additional-features {
+            background-color: var(--color-light-beige-green);
+            padding: 4rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            width: 100%;
+            border-radius: 40px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             margin-bottom: 40px;
         }
@@ -315,14 +302,14 @@
             height: 60px;
             margin-bottom: 1.5rem;
             border-radius: 50%;
-            object-fit: cover; /* Обеспечивает покрытие области */
+            object-fit: cover;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .feature-item h3 {
             font-size: 1rem;
             font-weight: 700;
-            color: var(--color-dark-text); /* Темно-серый */
+            color: var(--color-dark-text);
             margin-bottom: 0.5rem;
             text-transform: uppercase;
         }
@@ -330,13 +317,12 @@
         .feature-item p {
             font-size: 0.9rem;
             line-height: 1.6;
-            color: var(--color-medium-text); /* Средне-серый */
+            color: var(--color-medium-text);
         }
 
-        /* Footer */
         footer {
-            background-color: var(--color-footer-background); /* Используем темный землистый цвет */
-            color: white; /* Белый текст на темном фоне */
+            background-color: var(--color-footer-background);
+            color: white;
             padding: 2rem 1rem;
             text-align: center;
             border-top-left-radius: 40px;
@@ -344,7 +330,6 @@
             box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* Animation for sections on scroll */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
@@ -357,41 +342,36 @@
             transform: translateY(0);
         }
 
-        /* Custom styles for navigation buttons - ENHANCED EFFECTS */
         .nav-button {
-            @apply relative overflow-hidden /* Для эффекта волны/блеска */
-                   bg-white /* Фон кнопок - белый */
-                   text-[var(--color-dark-accent-green)] /* Цвет текста - темно-акцентный зеленый */
-                   font-semibold /* Полужирный текст */
-                   px-6 py-3 /* Больше отступов для размера */
-                   rounded-lg /* Слегка закругленные углы */
-                   shadow-md /* Небольшая тень для глубины */
-                   transition-all duration-300 ease-in-out /* Плавные переходы */
-                   whitespace-nowrap /* Предотвращаем перенос текста */
-                   z-10; /* Убедимся, что кнопки находятся поверх других элементов */
+            @apply relative overflow-hidden
+                   bg-white
+                   text-[var(--color-dark-accent-green)]
+                   font-semibold
+                   px-6 py-3
+                   rounded-lg
+                   shadow-md
+                   transition-all duration-300 ease-in-out
+                   whitespace-nowrap
+                   z-10;
 
-            /* Hover effect: background, text, shadow, and scale */
             &:hover {
-                @apply bg-[var(--color-dark-accent-green)] /* Наведение: фон темно-акцентный зеленый */
-                       text-white /* Наведение: текст белый */
-                       shadow-lg /* Наведение: большая тень */
-                       scale-105; /* Наведение: небольшое увеличение */
-                box-shadow: 0 8px 25px rgba(107, 142, 35, 0.4); /* Зеленое свечение на наведении */
+                @apply bg-[var(--color-dark-accent-green)]
+                       text-white
+                       shadow-lg
+                       scale-105;
+                box-shadow: 0 8px 25px rgba(107, 142, 35, 0.4);
             }
 
-            /* Active effect: subtle press down */
             &:active {
-                @apply scale-95; /* Нажатие: уменьшение размера */
-                transform: translateY(1px); /* Небольшое смещение вниз */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Уменьшение тени */
+                @apply scale-95;
+                transform: translateY(1px);
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
     <section id="hero-section" class="hero-section">
-        <!-- Слайдер изображений -->
         <div class="slider-image active" style="background-image: url('/main/static/img/photo1.jpg');"></div>
         <div class="slider-image" style="background-image: url('/main/static/img/photo2.jpg');"></div>
         <div class="slider-image" style="background-image: url('/main/static/img/photo3.jpg');"></div>
@@ -403,14 +383,11 @@
             <p>Ваш путь в UX/UI дизайне.</p>
         </div>
 
-        <!-- Кнопки навигации слайдера -->
         <button class="slider-nav-button prev">&#10094;</button>
         <button class="slider-nav-button next">&#10095;</button>
 
-        <!-- Индикаторы слайдера -->
         <div class="slider-indicators"></div>
 
-        <!-- Navigation Bar inside hero-section, positioned at bottom -->
         <nav class="absolute bottom-0 left-0 right-0 z-10 bg-[var(--color-primary-green)] bg-opacity-80 shadow-lg rounded-b-xl py-3 px-4 backdrop-blur-sm">
             <div class="container mx-auto flex flex-wrap justify-center items-center gap-4">
                 <a href="{% url 'index' %}" class="nav-button">Главная</a>
@@ -423,7 +400,6 @@
         </nav>
     </section>
 
-    <!-- Profession Brief Section -->
     <section id="profession-brief-section" class="content-section fade-in-section">
         <div class="font-details flex-col items-center">
             <div class="font-item text-center">
@@ -443,9 +419,8 @@
         </div>
     </section>
 
-    <!-- Features Section (QUICK VIEW now contains detailed info) -->
     <section id="features-section" class="features-section fade-in-section">
-        <div class="feature-block w-full"> <!-- w-full для занятия всей ширины -->
+        <div class="feature-block w-full">
             <h3 class="mb-2">ПОДРОБНО О ПРОФЕССИИ</h3>
             <h4 class="mb-4">Кто такой UX/UI-дизайнер?</h4>
             <p class="text-[var(--color-medium-text)] text-left">
@@ -463,7 +438,6 @@
         </div>
     </section>
 
-    <!-- Designer Tools Section -->
     <section id="designer-tools-section" class="additional-features fade-in-section">
         <div class="feature-item">
             <img src="https://placehold.co/60x60/FFDDC1/000000?text=Figma" alt="Иконка Figma">
@@ -482,7 +456,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>2025 UX Craft.</p>
         <p class="mt-2 text-sm">
@@ -501,26 +474,24 @@
                     }
                 });
             }, {
-                threshold: 0.1 // Срабатывает, когда 10% секции видно
+                threshold: 0.1
             });
 
             sections.forEach(section => {
                 observer.observe(section);
             });
 
-            // Smooth scrolling for navigation links
             document.querySelectorAll('nav a').forEach(anchor => {
                 const targetHref = anchor.getAttribute('href');
 
-                // Проверяем, является ли href якорем на текущей странице (начинается с '#')
                 if (targetHref && targetHref.startsWith('#')) {
                     anchor.addEventListener('click', function (e) {
-                        e.preventDefault(); // Предотвращаем стандартное поведение только для якорей
+                        e.preventDefault();
 
                         const targetId = targetHref;
                         const targetElement = document.querySelector(targetId);
 
-                        if (targetElement) { // Убедимся, что элемент существует
+                        if (targetElement) {
                             const offsetTop = targetElement.offsetTop;
 
                             window.scrollTo({
@@ -532,14 +503,12 @@
                 }
             });
 
-            // Image Slider Logic
             const images = document.querySelectorAll('.slider-image');
             const prevButton = document.querySelector('.slider-nav-button.prev');
             const nextButton = document.querySelector('.slider-nav-button.next');
             const indicatorsContainer = document.querySelector('.slider-indicators');
             let currentIndex = 0;
 
-            // Создание индикаторов
             images.forEach((_, index) => {
                 const dot = document.createElement('div');
                 dot.classList.add('indicator-dot');
@@ -579,10 +548,8 @@
             prevButton.addEventListener('click', prevSlide);
             nextButton.addEventListener('click', nextSlide);
 
-            // Автоматическое переключение слайдов каждые 5 секунд
             setInterval(nextSlide, 5000);
 
-            // Инициализация первого слайда
             showSlide(currentIndex);
         });
     </script>

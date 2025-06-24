@@ -4,36 +4,35 @@
 
 {% block content %}
     <style>
-        /* Пользовательские стили, соответствующие новой палитре */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f0e0; /* Светлый фон */
+            background-color: #f0f0e0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
+            overflow-x: hidden;
         }
         .header-bg {
-            background-color: #b0c4b0; /* Зеленый цвет для хедера и футера */
+            background-color: #b0c4b0;
         }
         .sidebar-bg {
-            background-color: #d0e0d0; /* Светло-зеленый для сайдбара */
-            border-right: 2px solid #80a080; /* Темно-зеленая граница */
+            background-color: #d0e0d0;
+            border-right: 2px solid #80a080;
         }
         .content-area-bg {
-            background-color: #ffffff; /* Белый фон для основной области контента */
-            border: 2px solid #80a080; /* Темно-зеленая граница */
+            background-color: #ffffff;
+            border: 2px solid #80a080;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .line {
             height: 2px;
-            background-color: #80a080; /* Темно-зеленая линия */
+            background-color: #80a080;
         }
 
-        /* Анимации, адаптированные под новую палитру */
+
         @keyframes pulse-border {
-            0% { border-color: rgba(128, 160, 128, 0.5); box-shadow: 0 0 0px rgba(128, 160, 128, 0.4); } /* Темно-зеленый */
-            50% { border-color: rgba(176, 196, 176, 0.8); box-shadow: 0 0 20px rgba(176, 196, 176, 0.6); } /* Светло-зеленый */
+            0% { border-color: rgba(128, 160, 128, 0.5); box-shadow: 0 0 0px rgba(128, 160, 128, 0.4); }
+            50% { border-color: rgba(176, 196, 176, 0.8); box-shadow: 0 0 20px rgba(176, 196, 176, 0.6); }
             100% { border-color: rgba(128, 160, 128, 0.5); box-shadow: 0 0 0px rgba(128, 160, 128, 0.4); }
         }
 
@@ -47,54 +46,54 @@
             animation: text-shimmer 3s infinite alternate;
         }
 
-        /* Общие стили для контейнера вакансий и карточек */
+
         .vacancies-container {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem; /* gap-6 в Tailwind */
+            gap: 1.5rem;
         }
 
         .card {
-            background-color: #ffffff; /* content-area-bg */
+            background-color: #ffffff;
             border: 2px solid #80a080; /* Темно-зеленая граница */
-            border-radius: 0.75rem; /* rounded-xl */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* shadow-lg */
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            transition: all 0.3s ease-in-out; /* transition-all duration-300 */
-            transform: translateY(10px); /* translate-y-10 */
-            opacity: 0; /* opacity-0 */
+            transition: all 0.3s ease-in-out;
+            transform: translateY(10px);
+            opacity: 0;
         }
 
         .card-header {
             background: linear-gradient(to right, #6B8E23, #556B2F); /* from-green-700 to-green-900 */
             color: #ffffff;
-            padding: 1.25rem; /* p-5 */
+            padding: 1.25rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
         .card-header h3 {
-            font-size: 1.5rem; /* text-2xl */
-            font-weight: 700; /* font-bold */
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
         .card-body {
-            padding: 1.5rem; /* p-6 */
+            padding: 1.5rem;
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem; /* gap-4 */
+            gap: 1rem;
             color: #4a5568; /* text-gray-700 */
         }
 
         .card-body p strong {
-            margin-right: 0.5rem; /* mr-2 */
+            margin-right: 0.5rem;
             color: #2d3748; /* text-gray-800 */
         }
 
         .card-footer {
             background-color: #f7fafc; /* bg-gray-100 */
-            padding: 1rem; /* p-4 */
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -107,7 +106,7 @@
             font-size: 0.875rem; /* text-sm */
         }
 
-        /* Анимация появления секций при скролле */
+
         .card.is-visible {
             opacity: 1;
             transform: translateY(0);
@@ -150,7 +149,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target); // Остановить наблюдение после появления
+                        observer.unobserve(entry.target); 
                     }
                 });
             }, {
